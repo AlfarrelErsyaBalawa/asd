@@ -3,9 +3,20 @@ import java.util.Scanner;
 
 public class BurhanQuest {
     // Banner pembuka, silakan manfaatkan variabel ini untuk menampilkan banner di awal dan di akhir program
-    private static final String BANNER = "";
-    private static final String STUDENT_NAME = "";
-    private static final String STUDENT_ID = "";
+    private static final String BANNER = 
+        " ███████████                       █████                                 ██████                                 █████   \r\n" + //
+        "░░███░░░░░███                     ░░███                                ███░░░░███                              ░░███    \r\n" + //
+        " ░███    ░███ █████ ████ ████████  ░███████    ██████   ████████      ███    ░░███ █████ ████  ██████   █████  ███████  \r\n" + //
+        " ░██████████ ░░███ ░███ ░░███░░███ ░███░░███  ░░░░░███ ░░███░░███    ░███     ░███░░███ ░███  ███░░███ ███░░  ░░░███░   \r\n" + //
+        " ░███░░░░░███ ░███ ░███  ░███ ░░░  ░███ ░███   ███████  ░███ ░███    ░███   ██░███ ░███ ░███ ░███████ ░░█████   ░███    \r\n" + //
+        " ░███    ░███ ░███ ░███  ░███      ░███ ░███  ███░░███  ░███ ░███    ░░███ ░░████  ░███ ░███ ░███░░░   ░░░░███  ░███ ███\r\n" + //
+        " ███████████  ░░████████ █████     ████ █████░░████████ ████ █████    ░░░██████░██ ░░████████░░██████  ██████   ░░█████ \r\n" + //
+        "░░░░░░░░░░░    ░░░░░░░░ ░░░░░     ░░░░ ░░░░░  ░░░░░░░░ ░░░░ ░░░░░       ░░░░░░ ░░   ░░░░░░░░  ░░░░░░  ░░░░░░     ░░░░░  \r\n" + //
+        "                                                                                                                        \r\n" + //
+        "                                                                                                                        \r\n" + //
+        "                                                                                                                        ";
+    private static final String STUDENT_NAME = "Alfarrel Ersya Balawa";
+    private static final String STUDENT_ID = "2506656406";
 
 
     // Penanda atribut, silakan manfaatkan variabel ini untuk menandai atribut di dalam data
