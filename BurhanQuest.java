@@ -41,32 +41,48 @@ public class BurhanQuest {
     private static final Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) throws Exception {
-        // TODO: Tampilkan banner
         System.out.println(BANNER);
         System.out.println("Selamat datang di BurhanQuest!");
         System.out.println("Dibuat oleh: " + STUDENT_NAME + " - " + STUDENT_ID);
         System.out.println("Mari kita mulai dengan membuat sejumlah data quest dan pengembara.");
 
-        // TODO: Seeding data quest dan pengembara
         int questCount, travelerCount;
         boolean invalidInput = true;
 
-        // TODO: Input banyak quest dan pengembara
         while (invalidInput) {
             System.out.print("Silakan masukkan banyak quest yang ingin didaftarkan: ");
             String questCountInput = input.nextLine();
-            // TODO: Validasi input jumlah quest
+            for (int i = 0; i < questCountInput.length(); i++) {
+                char ch = questCountInput.charAt(i);
+                if (!Character.isDigit(ch)) {
+                    System.out.println("Input tidak valid. Harap memasukkan input bilangan bulat nonnegatif.");
+                    break;
+                }
+            }
 
+            if (Integer.parseInt(questCountInput)>0) {
+                questCount = Integer.parseInt(questCountInput);
+                invalidInput = false;
+            }
             System.out.println("Input tidak valid. Harap masukkan bilangan bulat nonnegatif.");
         }
         
-        // TODO: Input jumlah pengembara
         invalidInput = true;
         while (invalidInput) {
             System.out.print("Silakan masukkan banyak pengembara yang ingin didaftarkan: ");
             String travelerCountInput = input.nextLine();
-            // TODO: Validasi input jumlah pengembara
+            for (int i = 0; i < travelerCountInput.length(); i++) {
+                char ch = travelerCountInput.charAt(i);
+                if (!Character.isDigit(ch)) {
+                    System.out.println("Input tidak valid. Harap memasukkan input bilangan bulat nonnegatif.");
+                    break;
+                }
+            }
 
+            if (Integer.parseInt(travelerCountInput)>0) {
+                travelerCount = Integer.parseInt(travelerCountInput);
+                invalidInput = false;
+            }
             System.out.println("Input tidak valid. Harap masukkan bilangan bulat nonnegatif.");
         }
         System.out.println();
