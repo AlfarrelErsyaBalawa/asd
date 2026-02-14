@@ -2,7 +2,7 @@ package TP.TP1;
 import java.util.Scanner;
 
 public class BurhanQuest {
-    // Banner pembuka, silakan manfaatkan variabel ini untuk menampilkan banner di awal dan di akhir program
+    // Banner pembuka
     private static final String BANNER = 
         " ███████████                       █████                                 ██████                                 █████   \r\n" + //
         "░░███░░░░░███                     ░░███                                ███░░░░███                              ░░███    \r\n" + //
@@ -19,7 +19,7 @@ public class BurhanQuest {
     private static final String STUDENT_ID = "2506656406";
 
 
-    // Penanda atribut, silakan manfaatkan variabel ini untuk menandai atribut di dalam data
+    // Penanda atribut
     // Atribut yang sama
     private static final char NAME_IDENTIFIER = '!';
     private static final char STATUS_IDENTIFIER = '@';
@@ -37,7 +37,7 @@ public class BurhanQuest {
 
     private static final int MAX_EXP = 1_310_720_000;
 
-    // Scanner untuk input, silakan manfaatkan variabel ini untuk mengambil input dari user
+    // Scanner untuk input
     private static final Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) throws Exception {
@@ -46,12 +46,14 @@ public class BurhanQuest {
         System.out.println("Dibuat oleh: " + STUDENT_NAME + " - " + STUDENT_ID);
         System.out.println("Mari kita mulai dengan membuat sejumlah data quest dan pengembara.");
 
-        int questCount, travelerCount;
+        int questCount=0, travelerCount=0;
         boolean invalidInput = true;
 
+        // While loop yang akan mengulang permintaan input ke user selama input tidak valid
         while (invalidInput) {
             System.out.print("Silakan masukkan banyak quest yang ingin didaftarkan: ");
             String questCountInput = input.nextLine();
+            // For loop yang mengecek tiap karakter dalam input string apakah karakter tersebut adalah sebuah angka
             for (int i = 0; i < questCountInput.length(); i++) {
                 char ch = questCountInput.charAt(i);
                 if (!Character.isDigit(ch)) {
@@ -68,9 +70,12 @@ public class BurhanQuest {
         }
         
         invalidInput = true;
+
+        // While loop yang akan mengulang permintaan input ke user selama input tidak valid
         while (invalidInput) {
             System.out.print("Silakan masukkan banyak pengembara yang ingin didaftarkan: ");
             String travelerCountInput = input.nextLine();
+            // For loop yang mengecek tiap karakter dalam input string apakah karakter tersebut adalah sebuah angka
             for (int i = 0; i < travelerCountInput.length(); i++) {
                 char ch = travelerCountInput.charAt(i);
                 if (!Character.isDigit(ch)) {
@@ -90,11 +95,81 @@ public class BurhanQuest {
         String questData = "";
         String travelerData = "";
         System.out.println("Mulai memasukkan data quest.");
-        // TODO: Input data quest sebanyak quest yang diminta
-        for (int i = 0; i < questCount; i++) {
-            
+        for (int i = 1; i <= questCount; i++) {
+            boolean questDataValid = false;
+            while (!questDataValid) {
+                // Input data quest
+                System.out.println("Quest " + i);
+                System.out.print("Masukkan nama quest: ");
+                String namaQuest = input.nextLine();
+                System.out.print("Masukkan deskripsi quest: ");
+                String questDescription = input.nextLine();
+                System.out.print("Masukkan reward quest (bilangan bulat nonnegatif): ");
+                String reward = input.nextLine();
+                System.out.print("Masukkan bonus exp quest (bilangan bulat nonnegatif): ");
+                String expBonus = input.nextLine();
+                System.out.print("Masukkan tingkat kesulitan quest (mudah/menegah/sulit): ");
+                String difficulty = input.nextLine();
+
+                // Validasi input data quest
+                boolean questNameValid = true;
+                for (int c=0;c<namaQuest.length();c++) {
+                    char ch = namaQuest.charAt(c);
+                    if (!Character.isLetterOrDigit(ch)) {
+                        questNameValid = false;
+                    }
+                }
+
+                boolean questDescValid = true;
+                for (int c=0;c<questDescription.length();c++) {
+                    char ch = questDescription.charAt(c);
+                    if (!Character.isLetterOrDigit(ch)) {
+                        questDescValid = false;
+                    }
+                }
+
+                boolean questRewardValid = true;
+                for (int c=0;c<reward.length();c++) {
+                    char ch = reward.charAt(c);
+                    if (!Character.isLetterOrDigit(ch)) {
+                        questRewardValid = false;
+                    }
+                }
+                int intReward = Integer.parseInt(reward);
+
+                boolean questExpBonusValid = true;
+                for (int c=0;c<expBonus.length();c++) {
+                    char ch = expBonus.charAt(c);
+                    if (!Character.isLetterOrDigit(ch)) {
+                        questExpBonusValid = false;
+                    }
+                }
+                int intExpBonus = Integer.parseInt(expBonus);
+
+                boolean questDifficultyValid = false;
+                if (difficulty.equalsIgnoreCase("mudah"))
+                    questDifficultyValid = true;
+                else if (difficulty.equalsIgnoreCase("menengah"))
+                    questDifficultyValid = true;
+                else if (difficulty.equalsIgnoreCase("sulit"))
+                    questDifficultyValid = true;
+                
+                // // DEBUGGING
+                // System.out.println(questNameValid);
+                // System.out.println(questDescValid);
+                // System.out.println(questRewardValid);
+                // System.out.println(questExpBonusValid);
+                // System.out.println(questDifficultyValid);
+
+                if (questNameValid && questDescValid && questRewardValid && questExpBonusValid && questDifficultyValid){
+                    questDataValid = true;
+                    System.out.println("Quest berhasil ditambahkan");
+                }
+                else{
+                    System.out.println("Input tidak vaild, harap masukkan data dengan benar.");
+                }
+            }
         }
-        System.out.println();
 
         System.out.println("Mulai memasukkan data pengembara.");
         // TODO: Input data pengembara sebanyak pengembara yang diminta
