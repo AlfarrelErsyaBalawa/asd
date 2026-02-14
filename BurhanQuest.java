@@ -115,7 +115,8 @@ public class BurhanQuest {
                 boolean questNameValid = true;
                 for (int c=0;c<namaQuest.length();c++) {
                     char ch = namaQuest.charAt(c);
-                    if (!Character.isLetterOrDigit(ch)) {
+                    // mengecek apakah karakter adalah huruf atau digit atau spasi
+                    if (!(Character.isLetterOrDigit(ch) || ch == " ".charAt(0))) {
                         questNameValid = false;
                     }
                 }
@@ -123,28 +124,28 @@ public class BurhanQuest {
                 boolean questDescValid = true;
                 for (int c=0;c<questDescription.length();c++) {
                     char ch = questDescription.charAt(c);
-                    if (!Character.isLetterOrDigit(ch)) {
+                    if (!(Character.isLetterOrDigit(ch) || ch == " ".charAt(0))) {
                         questDescValid = false;
                     }
                 }
 
                 boolean questRewardValid = true;
+                int intReward = Integer.parseInt(reward);
                 for (int c=0;c<reward.length();c++) {
                     char ch = reward.charAt(c);
-                    if (!Character.isLetterOrDigit(ch)) {
+                    if (!(Character.isDigit(ch) || intReward >= 0)) {
                         questRewardValid = false;
                     }
                 }
-                int intReward = Integer.parseInt(reward);
 
                 boolean questExpBonusValid = true;
+                int intExpBonus = Integer.parseInt(expBonus);
                 for (int c=0;c<expBonus.length();c++) {
                     char ch = expBonus.charAt(c);
-                    if (!Character.isLetterOrDigit(ch)) {
+                    if (!(Character.isDigit(ch) || intExpBonus >= 0)) {
                         questExpBonusValid = false;
                     }
                 }
-                int intExpBonus = Integer.parseInt(expBonus);
 
                 boolean questDifficultyValid = false;
                 if (difficulty.equalsIgnoreCase("mudah"))
@@ -166,15 +167,52 @@ public class BurhanQuest {
                     System.out.println("Quest berhasil ditambahkan");
                 }
                 else{
-                    System.out.println("Input tidak vaild, harap masukkan data dengan benar.");
+                    System.out.println("Input tidak vaild. Harap masukkan data dengan benar.");
                 }
             }
         }
 
         System.out.println("Mulai memasukkan data pengembara.");
-        // TODO: Input data pengembara sebanyak pengembara yang diminta
-        for (int i = 0; i < travelerCount; i++) {
-            
+        for (int i = 1; i <= travelerCount; i++) {
+            boolean pengembaraDataValid = false;
+            while (!pengembaraDataValid) {
+                // Input data pengembara
+                System.out.println("Pengembara " + i);
+                System.out.print("Masukkan nama pengembara: ");
+                String pengembaraNama = input.nextLine();
+                System.out.print("Masukkan level pengembara berupa bilangan bulat [1,20]: ");
+                String pengembaraLevel = input.nextLine();
+
+                // Validasi input data pengembara
+                boolean pengembaraNamavalid = true;
+                for (int c=0 ; c<pengembaraNama.length() ; c++) {
+                    char ch = pengembaraNama.charAt(c);
+                    if (!(Character.isLetterOrDigit(ch) || ch == " ".charAt(0))) {
+                    pengembaraNamavalid = false;
+                    }
+                }
+
+                boolean pengembaraLevelValid = true;
+                int pengembaraLevelInt = Integer.parseInt(pengembaraLevel);
+                if (pengembaraLevelInt <= 0) {
+                    pengembaraLevelValid = false;
+                }
+                else if ((pengembaraLevelInt - 20) > 0) {
+                    pengembaraLevelValid = false;
+                }
+
+                // // DEBUGGING
+                // System.out.println(pengembaraNamavalid);
+                // System.out.println(pengembaraLevelValid);
+
+                pengembaraDataValid = (pengembaraNamavalid && pengembaraLevelValid);
+                if (!pengembaraDataValid) {
+                    System.out.println("Input tidak valid. Harap masukkan data dengan benar.");
+                }
+                else {
+                    System.out.println("Pengembara berhasil ditambahkan.");
+                }
+            }
         }
         System.out.println("Data berhasil dimasukkan.");
         System.out.println();
