@@ -1,4 +1,3 @@
-package TP.TP1;
 import java.util.Scanner;
 
 public class BurhanQuest {
@@ -58,13 +57,14 @@ public class BurhanQuest {
                 char ch = questCountInput.charAt(i);
                 if (!Character.isDigit(ch)) {
                     System.out.println("Input tidak valid. Harap memasukkan input bilangan bulat nonnegatif.");
-                    break;
+                    continue;
                 }
             }
 
             if (Integer.parseInt(questCountInput)>0) {
                 questCount = Integer.parseInt(questCountInput);
                 invalidInput = false;
+                break;
             }
             System.out.println("Input tidak valid. Harap masukkan bilangan bulat nonnegatif.");
         }
@@ -80,13 +80,14 @@ public class BurhanQuest {
                 char ch = travelerCountInput.charAt(i);
                 if (!Character.isDigit(ch)) {
                     System.out.println("Input tidak valid. Harap memasukkan input bilangan bulat nonnegatif.");
-                    break;
+                    continue;
                 }
             }
-
+            
             if (Integer.parseInt(travelerCountInput)>0) {
                 travelerCount = Integer.parseInt(travelerCountInput);
                 invalidInput = false;
+                break;
             }
             System.out.println("Input tidak valid. Harap masukkan bilangan bulat nonnegatif.");
         }
@@ -108,7 +109,7 @@ public class BurhanQuest {
                 String reward = input.nextLine();
                 System.out.print("Masukkan bonus exp quest (bilangan bulat nonnegatif): ");
                 String expBonus = input.nextLine();
-                System.out.print("Masukkan tingkat kesulitan quest (mudah/menegah/sulit): ");
+                System.out.print("Masukkan tingkat kesulitan quest (mudah/menengah/sulit): ");
                 String difficulty = input.nextLine();
 
                 // Validasi input data quest
@@ -154,16 +155,10 @@ public class BurhanQuest {
                     questDifficultyValid = true;
                 else if (difficulty.equalsIgnoreCase("sulit"))
                     questDifficultyValid = true;
-                
-                // // DEBUGGING
-                // System.out.println(questNameValid);
-                // System.out.println(questDescValid);
-                // System.out.println(questRewardValid);
-                // System.out.println(questExpBonusValid);
-                // System.out.println(questDifficultyValid);
 
                 if (questNameValid && questDescValid && questRewardValid && questExpBonusValid && questDifficultyValid){
                     questDataValid = true;
+                    questData = questData + "Q"+i +"|"+ namaQuest +"|"+ questDescription +"|"+ reward +"|"+ expBonus +"|"+ difficulty +"|"+ "tersedia\ud83d\udfe2" + "$";
                     System.out.println("Quest berhasil ditambahkan");
                 }
                 else{
@@ -201,16 +196,13 @@ public class BurhanQuest {
                     pengembaraLevelValid = false;
                 }
 
-                // // DEBUGGING
-                // System.out.println(pengembaraNamavalid);
-                // System.out.println(pengembaraLevelValid);
-
                 pengembaraDataValid = (pengembaraNamavalid && pengembaraLevelValid);
-                if (!pengembaraDataValid) {
-                    System.out.println("Input tidak valid. Harap masukkan data dengan benar.");
+                if (pengembaraDataValid) {
+                    travelerData = travelerData + pengembaraNama +"|"+ pengembaraLevel +"|"+ "0" +"|"+ "kosong\u2705" + "$";
+                    System.out.println("Pengembara berhasil ditambahkan.");
                 }
                 else {
-                    System.out.println("Pengembara berhasil ditambahkan.");
+                    System.out.println("Input tidak valid. Harap masukkan data dengan benar.");
                 }
             }
         }
@@ -236,9 +228,108 @@ public class BurhanQuest {
             String choice = input.nextLine().trim();
 
             switch (choice) {
+                // Menampilkan daftar quest
                 case "1":
-                    // TODO: Tampilkan daftar quest
-                    System.out.println("Belum diimplementasikan");
+                    int temp_pointer1 = 0;
+
+                    // Menghitung total quest yang ada
+                    int totalQuest = 0;
+                    for (int i=0 ; i<questData.length() ; i++){
+                        if ((questData.charAt(i)) == "$".charAt(0)){
+                            totalQuest++;
+                        }
+                    }
+
+                    // Loop untuk setiap quest
+                    for (int i=1; i<=totalQuest; i++) {
+                        // Inisialisasi variable sementara untuk diisi data dari daftar quest kemudian diprint dalam loop
+                        String temp_questID = "";
+                        String temp_questName = "";
+                        String temp_questDesc = "";
+                        String temp_questReward = "";
+                        String temp_questExp = "";
+                        String temp_questDifficulty = "";
+                        String temp_questStatus = "";
+
+                        // Loop untuk memisahkan quest 1 dengan yang lainnya
+                        for (int j=temp_pointer1 ; j<questData.length() ; j++){
+                            if ((questData.charAt(j)) == "$".charAt(0)){
+                                int temp_pointer2 = temp_pointer1;
+                                int temp_pointer3 = temp_pointer1;
+
+                                // pointer1 menunjuk dimana bagian akhir dari data-data sebuah quest
+                                temp_pointer1 = j+1;
+                                // switch untuk menaruh data dalam urutan yang benar
+                                int temp_switch = 0;
+                                
+                                // Loop untuk setiap elemen dalam 1 quest
+                                for (int k=temp_pointer3 ; k<=j ; k++) {
+                                    if (questData.charAt(k) == "|".charAt(0) || questData.charAt(k) == "$".charAt(0)){
+
+                                        // Memindahkan pointer2 ke index akhir dari unsur sebuah quest
+                                        temp_pointer2 = k;
+
+                                        temp_switch++;
+                                        switch (temp_switch) {
+                                            // Quest ID
+                                            case 1:
+                                                temp_questID = questData.substring(temp_pointer3, temp_pointer2);
+                                                break;
+                                            
+                                            // Quest Name
+                                            case 2:
+                                                temp_questName = questData.substring(temp_pointer3, temp_pointer2);
+                                                break;
+                                        
+                                            // Quest Description
+                                            case 3:
+                                                temp_questDesc = questData.substring(temp_pointer3, temp_pointer2);
+                                                break;
+                                        
+                                            // Quest Reward
+                                            case 4:
+                                                temp_questReward = questData.substring(temp_pointer3, temp_pointer2);
+                                                break;
+                                        
+                                            // Quest Bonus Exp
+                                            case 5:
+                                                temp_questExp = questData.substring(temp_pointer3, temp_pointer2);
+                                                break;
+                                        
+                                            // Quest Difficulty
+                                            case 6:
+                                                temp_questDifficulty = questData.substring(temp_pointer3, temp_pointer2);
+                                                break;
+            
+                                            // Quest Status
+                                            case 7:
+                                                temp_questStatus = questData.substring(temp_pointer3, temp_pointer2);
+                                                break;
+                                        
+                                            default:
+                                                break;
+                                        }
+
+                                    // Memindahkan pointer3 ke awal unsur data untuk loop k berikutnya
+                                    temp_pointer3 = temp_pointer2+1;
+                                    }
+                                }
+                                // Menghentikan loop j setelah 1 quest ketemu
+                                break;
+                            }
+                        }
+                        
+                        // Print data ke terminal
+                        System.out.println("ID Quest: "+temp_questID);
+                        System.out.println("Nama Quest: "+temp_questName);
+                        System.out.println("Deskripsi Quest: "+temp_questDesc);
+                        System.out.println("Reward Quest: "+temp_questReward+" koin" );
+                        System.out.println("Bonus EXP Quest: "+temp_questExp+" poin exp");
+                        System.out.println("Tingkat Kesulitan Quest: "+temp_questDifficulty);
+                        System.out.println("Status Quest: "+temp_questStatus);
+                        System.out.println();
+                    }
+                    
                     break;
                 case "2":
                     // TODO: Tampilkan daftar pengembara
